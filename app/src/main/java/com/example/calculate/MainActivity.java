@@ -7,28 +7,33 @@ import android.widget.Button;
 import android.widget.TextView;
 
 public class MainActivity extends AppCompatActivity {
-    View view;
 
-    private Button mbtn_1;
-    private Button mbtn_2;
-    private Button mbtn_3;
-    private Button mbtn_4;
-    private Button mbtn_5;
-    private Button mbtn_6;
-    private Button mbtn_7;
-    private Button mbtn_8;
-    private Button mbtn_9;
-    private Button mbtn_0;
-    private Button mbtn_add;
-    private Button mbtn_sub;
-    private Button mbtn_multiply;
-    private Button mbtn_divide;
-    private Button mbtn_del;
-    private Button mbtn_equal;
-    private Button mbtn_point;
-    private Button mbtn_clean;
-    private TextView mtv_result;
-    private TextView med_play;
+    private Button mBtn_1;
+    private Button mBtn_2;
+    private Button mBtn_3;
+    private Button mBtn_4;
+    private Button mBtn_5;
+    private Button mBtn_6;
+    private Button mBtn_7;
+    private Button mBtn_8;
+    private Button mBtn_9;
+    private Button mBtn_0;
+    private Button mBtn_add;
+    private Button mBtn_sub;
+    private Button mBtn_multiply;
+    private Button mBtn_divide; // 除
+    private Button mBtn_del;// 删除一个
+    private Button mBtn_equal; // 等于
+    private Button mBtn_point; // 点
+    private Button mBtn_clean; // 清除
+    private TextView mEdt_play; // 显示运算过程
+    private TextView mTv_result;// 显示结果
+
+    StringBuffer display = new StringBuffer();
+    String result = "";
+    String opt = "";
+    double value;
+
 
 
     @Override
@@ -39,28 +44,94 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init(){
-        mbtn_0 = (Button) view.findViewById(R.id.btn_0);
-        mbtn_1 = (Button) view.findViewById(R.id.btn_1);
-        mbtn_2 = (Button) view.findViewById(R.id.btn_2);
-        mbtn_3 = (Button) view.findViewById(R.id.btn_3);
-        mbtn_4 = (Button) view.findViewById(R.id.btn_4);
-        mbtn_5 = (Button) view.findViewById(R.id.btn_5);
-        mbtn_6 = (Button) view.findViewById(R.id.btn_6);
-        mbtn_7 = (Button) view.findViewById(R.id.btn_7);
-        mbtn_8 = (Button) view.findViewById(R.id.btn_8);
-        mbtn_9 = (Button) view.findViewById(R.id.btn_9);
-        mbtn_add = (Button) view.findViewById(R.id.btn_add);
-        mbtn_sub = (Button) view.findViewById(R.id.btn_sub);
-        mbtn_multiply = (Button) view.findViewById(R.id.btn_multiply);
-        mbtn_divide = (Button) view.findViewById(R.id.btn_divide);
-        mbtn_del = (Button) view.findViewById(R.id.btn_del);
-        mbtn_equal = (Button) view.findViewById(R.id.btn_equal);
-        mbtn_point = (Button) view.findViewById(R.id.btn_point);
-        mbtn_clean = (Button) view.findViewById(R.id.btn_clear);
-        med_play = (TextView) view.findViewById(R.id.edt_calc);
-        med_play.setText("");
-        mtv_result = (TextView) view.findViewById(R.id.txt_calc);
+        mBtn_0 = (Button) findViewById(R.id.btn_0);
+        mBtn_1 = (Button) findViewById(R.id.btn_1);
+        mBtn_2 = (Button) findViewById(R.id.btn_2);
+        mBtn_3 = (Button) findViewById(R.id.btn_3);
+        mBtn_4 = (Button) findViewById(R.id.btn_4);
+        mBtn_5 = (Button) findViewById(R.id.btn_5);
+        mBtn_6 = (Button) findViewById(R.id.btn_6);
+        mBtn_7 = (Button) findViewById(R.id.btn_7);
+        mBtn_8 = (Button) findViewById(R.id.btn_8);
+        mBtn_9 = (Button) findViewById(R.id.btn_9);
+        mBtn_add = (Button) findViewById(R.id.btn_add);
+        mBtn_sub = (Button) findViewById(R.id.btn_sub);
+        mBtn_multiply = (Button) findViewById(R.id.btn_multiply);
+        mBtn_divide = (Button) findViewById(R.id.btn_divide);
+        mBtn_del = (Button) findViewById(R.id.btn_del);
+        mBtn_equal = (Button) findViewById(R.id.btn_equal);
+        mBtn_point = (Button) findViewById(R.id.btn_point);
+        mBtn_clean = (Button) findViewById(R.id.btn_clean);
+        mEdt_play = (TextView) findViewById(R.id.edt_calc);
+        mEdt_play.setText("0");
+        mTv_result = (TextView) findViewById(R.id.txt_calc);
 
-        
+    }
+
+    public void click(View v){
+        if (display.toString().equals("0")){
+            display = new StringBuffer();
+        }
+        int id = v.getId();
+        switch(id){
+            case R.id.btn_0:
+                display.append("0");
+                mEdt_play.setText(display.toString());
+                break;
+            case R.id.btn_1:
+                display.append("1");
+                mEdt_play.setText(display.toString());
+                break;
+            case R.id.btn_2:
+                display.append("2");
+                mEdt_play.setText(display.toString());
+                break;
+            case R.id.btn_3:
+                display.append("3");
+                mEdt_play.setText(display.toString());
+                break;
+            case R.id.btn_4:
+                display.append("4");
+                mEdt_play.setText(display.toString());
+                break;
+            case R.id.btn_5:
+                display.append("5");
+                mEdt_play.setText(display.toString());
+                break;
+            case R.id.btn_6:
+                display.append("6");
+                mEdt_play.setText(display.toString());
+                break;
+            case R.id.btn_7:
+                display.append("7");
+                mEdt_play.setText(display.toString());
+                break;
+            case R.id.btn_8:
+                display.append("8");
+                mEdt_play.setText(display.toString());
+                break;
+            case R.id.btn_9:
+                display.append("9");
+                mEdt_play.setText(display.toString());
+                break;
+            case R.id.btn_point:
+                if (display.length() == 0){
+                    display.append("0.");
+                    mEdt_play.setText(display.toString());
+                }
+                break;
+            case R.id.btn_clean:
+                display = new StringBuffer();
+                result = "";
+                mEdt_play.setText("0");
+                mTv_result.setText("");
+                break;
+            case R.id.btn_del:
+                if (display.length() !=  0){
+                    display.deleteCharAt(display.length()-1);
+                }
+                mEdt_play.setText(display.toString());
+                break;
+        }
     }
 }
