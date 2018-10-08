@@ -36,7 +36,7 @@ public class tools {
         return result;
     }
 
-    //Todo:计算*/操作
+    // 计算*/操作
     private static String Calc_MD(String str){
         char opt[] = new char[20];
         int j = 0;
