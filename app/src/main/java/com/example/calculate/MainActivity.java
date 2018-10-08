@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
 
     StringBuffer display = new StringBuffer();
     String result = "";
-    String opt = "";
     char ch;
     double value;
 
@@ -272,13 +271,26 @@ public class MainActivity extends AppCompatActivity {
                             result = display.toString();
                             mTv_result.setText(result);
                         }else{
-                            
+                            try{
+                                value = Double.parseDouble(tools.Calc(display.toString()));
+                                result = String.valueOf(value);
+                                if (result.endsWith(".0")){
+                                    StringBuffer tmp = new StringBuffer(result);
+                                    tmp.delete(tmp.length() - 2, tmp.length());
+                                    result = tmp.toString();
+                                }
+                                mTv_result.setText(result);
+                            }catch (NumberFormatException e){
+                                result = "错误数据";
+                                mTv_result.setText(result);
+                            }
                         }
                     }else{
                         result = "语法错误";
                         mTv_result.setText(result);
                     }
                 }
+                break;
             case R.id.btn_clean:
                 display = new StringBuffer();
                 result = "";
