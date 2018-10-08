@@ -32,6 +32,7 @@ public class MainActivity extends AppCompatActivity {
     StringBuffer display = new StringBuffer();
     String result = "";
     String opt = "";
+    char ch;
     double value;
 
 
@@ -75,49 +76,180 @@ public class MainActivity extends AppCompatActivity {
         int id = v.getId();
         switch(id){
             case R.id.btn_0:
+                if (result.length() != 0){
+                    result = "";
+                }
                 display.append("0");
                 mEdt_play.setText(display.toString());
                 break;
             case R.id.btn_1:
+                if (result.length() != 0){
+                    result = "";
+                }
                 display.append("1");
                 mEdt_play.setText(display.toString());
                 break;
             case R.id.btn_2:
+                if (result.length() != 0){
+                    result = "";
+                }
                 display.append("2");
                 mEdt_play.setText(display.toString());
                 break;
             case R.id.btn_3:
+                if (result.length() != 0){
+                    result = "";
+                }
                 display.append("3");
                 mEdt_play.setText(display.toString());
                 break;
             case R.id.btn_4:
+                if (result.length() != 0){
+                    result = "";
+                }
                 display.append("4");
                 mEdt_play.setText(display.toString());
                 break;
             case R.id.btn_5:
+                if (result.length() != 0){
+                    result = "";
+                }
                 display.append("5");
                 mEdt_play.setText(display.toString());
                 break;
             case R.id.btn_6:
+                if (result.length() != 0){
+                    result = "";
+                }
                 display.append("6");
                 mEdt_play.setText(display.toString());
                 break;
             case R.id.btn_7:
+                if (result.length() != 0){
+                    result = "";
+                }
                 display.append("7");
                 mEdt_play.setText(display.toString());
                 break;
             case R.id.btn_8:
+                if (result.length() != 0){
+                    result = "";
+                }
                 display.append("8");
                 mEdt_play.setText(display.toString());
                 break;
             case R.id.btn_9:
+                if (result.length() != 0){
+                    result = "";
+                }
                 display.append("9");
                 mEdt_play.setText(display.toString());
+                break;
+            case R.id.btn_add:
+                result = "";
+                if (display.toString().endsWith("/0")){
+                    result = "除数不能为0";
+                    mTv_result.setText(result);
+                    display.delete(display.length() - 2, display.length());
+                    mEdt_play.setText(display.toString());
+                }else{
+                    if (display.toString().length() == 0){
+                        display.append("0+");
+                        mEdt_play.setText(display.toString());
+                    }else{
+                        ch = display.charAt(display.length() - 1);
+                        if (Character.isDigit(ch)){
+                            display.append("+");
+                            mEdt_play.setText(display.toString());
+                        }else{
+                            result = "语法错误";
+                            mTv_result.setText(result);
+                        }
+                    }
+                }
+                break;
+            case R.id.btn_sub:
+                result = "";
+                if (display.toString().endsWith("/0")){
+                    result = "除数不能为0";
+                    mTv_result.setText(result);
+                    display.delete(display.length() - 2, display.length());
+                    mEdt_play.setText(display.toString());
+
+                }else{
+                    if (display.toString().length() == 0){
+                        display.append("0-");
+                        mEdt_play.setText(display.toString());
+                    }else{
+                        ch = display.charAt(display.length() - 1);
+                        if (Character.isDigit(ch)){
+                            display.append("-");
+                            mEdt_play.setText(display.toString());
+                        }else{
+                            result = "语法错误";
+                            mTv_result.setText(result);
+                        }
+                    }
+                }
+                break;
+            case R.id.btn_multiply:
+                result = "";
+                if (display.toString().endsWith("/0")){
+                    result = "除数不能为0";
+                    mTv_result.setText(result);
+                    display.delete(display.length() - 2, display.length());
+                    mEdt_play.setText(display.toString());
+
+                }else{
+                    if (display.toString().length() == 0){
+                        display.append("0*");
+                        mEdt_play.setText(display.toString());
+                    }else{
+                        ch = display.charAt(display.length() - 1);
+                        if (Character.isDigit(ch)){
+                            display.append("*");
+                            mEdt_play.setText(display.toString());
+                        }else{
+                            result = "语法错误";
+                            mTv_result.setText(result);
+                        }
+                    }
+                }
+                break;
+            case R.id.btn_divide:
+                result = "";
+                if (display.toString().endsWith("/0")){
+                    result = "除数不能为0";
+                    mTv_result.setText(result);
+                    display.delete(display.length() - 2, display.length());
+                    mEdt_play.setText(display.toString());
+
+                }else{
+                    if (display.toString().length() == 0){
+                        display.append("0/");
+                        mEdt_play.setText(display.toString());
+                    }else{
+                        ch = display.charAt(display.length() - 1);
+                        if (Character.isDigit(ch)){
+                            display.append("/");
+                            mEdt_play.setText(display.toString());
+                        }else{
+                            result = "语法错误";
+                            mTv_result.setText(result);
+                        }
+                    }
+                }
                 break;
             case R.id.btn_point:
                 if (display.length() == 0){
                     display.append("0.");
                     mEdt_play.setText(display.toString());
+                }else{
+                    ch = display.charAt(display.length() - 1);
+                    if (Character.isDigit(ch)){
+                        display.append(".");
+                        mEdt_play.setText(display.toString());
+                    }
                 }
                 break;
             case R.id.btn_clean:
