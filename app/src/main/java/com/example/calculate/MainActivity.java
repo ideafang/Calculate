@@ -69,6 +69,15 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+    private boolean checkNum(String str){
+        for (int i = 0; i < str.length(); i++){
+            if (!Character.isDigit(str.charAt(i))){
+                return false;
+            }
+        }
+        return true;
+    }
+
     public void click(View v){
         if (display.toString().equals("0")){
             display = new StringBuffer();
@@ -252,6 +261,24 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }
                 break;
+            case R.id.btn_equal:
+                if (display.length() == 0){
+                    result = "0";
+                    mTv_result.setText(result);
+                }else{
+                    ch = display.charAt(display.length() - 1);
+                    if (Character.isDigit(ch)){
+                        if (checkNum(display.toString())){
+                            result = display.toString();
+                            mTv_result.setText(result);
+                        }else{
+                            
+                        }
+                    }else{
+                        result = "语法错误";
+                        mTv_result.setText(result);
+                    }
+                }
             case R.id.btn_clean:
                 display = new StringBuffer();
                 result = "";
