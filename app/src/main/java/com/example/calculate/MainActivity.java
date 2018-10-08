@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     String result = "";
     char ch;
     double value;
+    int flag = 0;
 
 
 
@@ -44,24 +45,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void init(){
-        mBtn_0 = (Button) findViewById(R.id.btn_0);
-        mBtn_1 = (Button) findViewById(R.id.btn_1);
-        mBtn_2 = (Button) findViewById(R.id.btn_2);
-        mBtn_3 = (Button) findViewById(R.id.btn_3);
-        mBtn_4 = (Button) findViewById(R.id.btn_4);
-        mBtn_5 = (Button) findViewById(R.id.btn_5);
-        mBtn_6 = (Button) findViewById(R.id.btn_6);
-        mBtn_7 = (Button) findViewById(R.id.btn_7);
-        mBtn_8 = (Button) findViewById(R.id.btn_8);
-        mBtn_9 = (Button) findViewById(R.id.btn_9);
-        mBtn_add = (Button) findViewById(R.id.btn_add);
-        mBtn_sub = (Button) findViewById(R.id.btn_sub);
-        mBtn_multiply = (Button) findViewById(R.id.btn_multiply);
-        mBtn_divide = (Button) findViewById(R.id.btn_divide);
-        mBtn_del = (Button) findViewById(R.id.btn_del);
-        mBtn_equal = (Button) findViewById(R.id.btn_equal);
-        mBtn_point = (Button) findViewById(R.id.btn_point);
-        mBtn_clean = (Button) findViewById(R.id.btn_clean);
         mEdt_play = (TextView) findViewById(R.id.edt_calc);
         mEdt_play.setText("0");
         mTv_result = (TextView) findViewById(R.id.txt_calc);
@@ -80,6 +63,10 @@ public class MainActivity extends AppCompatActivity {
     public void click(View v){
         if (display.toString().equals("0")){
             display = new StringBuffer();
+        }
+        if (flag == 1){
+            display = new StringBuffer();
+            flag = 0;
         }
         int id = v.getId();
         switch(id){
@@ -183,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
                     mTv_result.setText(result);
                     display.delete(display.length() - 2, display.length());
                     mEdt_play.setText(display.toString());
-
                 }else{
                     if (display.toString().length() == 0){
                         display.append("0-");
@@ -207,7 +193,6 @@ public class MainActivity extends AppCompatActivity {
                     mTv_result.setText(result);
                     display.delete(display.length() - 2, display.length());
                     mEdt_play.setText(display.toString());
-
                 }else{
                     if (display.toString().length() == 0){
                         display.append("0*");
@@ -231,7 +216,6 @@ public class MainActivity extends AppCompatActivity {
                     mTv_result.setText(result);
                     display.delete(display.length() - 2, display.length());
                     mEdt_play.setText(display.toString());
-
                 }else{
                     if (display.toString().length() == 0){
                         display.append("0/");
@@ -264,32 +248,40 @@ public class MainActivity extends AppCompatActivity {
                 if (display.length() == 0){
                     result = "0";
                     mTv_result.setText(result);
-                }else{
-                    ch = display.charAt(display.length() - 1);
-                    if (Character.isDigit(ch)){
-                        if (checkNum(display.toString())){
-                            result = display.toString();
-                            mTv_result.setText(result);
-                        }else{
-                            try{
-                                value = Double.parseDouble(tools.Calc(display.toString()));
-                                result = String.valueOf(value);
-                                if (result.endsWith(".0")){
-                                    StringBuffer tmp = new StringBuffer(result);
-                                    tmp.delete(tmp.length() - 2, tmp.length());
-                                    result = tmp.toString();
-                                }
-                                mTv_result.setText(result);
-                            }catch (NumberFormatException e){
-                                result = "错误数据";
-                                mTv_result.setText(result);
-                            }
-                        }
-                    }else{
-                        result = "语法错误";
+                } else{
+                    if (display.toString().endsWith("/0")){
+                        result = "除数不能为0";
                         mTv_result.setText(result);
+                        display.delete(display.length() - 2, display.length());
+                        mEdt_play.setText(display.toString());
+                    }else{
+                        ch = display.charAt(display.length() - 1);
+                        if (Character.isDigit(ch)){
+                            if (checkNum(display.toString())){
+                                result = display.toString();
+                                mTv_result.setText(result);
+                            }else{
+                                try{
+                                    value = Double.parseDouble(tools.Calc(display.toString()));
+                                    result = String.valueOf(value);
+                                    if (result.endsWith(".0")){
+                                        StringBuffer tmp = new StringBuffer(result);
+                                        tmp.delete(tmp.length() - 2, tmp.length());
+                                        result = tmp.toString();
+                                    }
+                                    mTv_result.setText(result);
+                                }catch (NumberFormatException e){
+                                    result = "错误数据";
+                                    mTv_result.setText(result);
+                                }
+                            }
+                        }else{
+                            result = "语法错误";
+                            mTv_result.setText(result);
+                        }
                     }
                 }
+                flag = 1;
                 break;
             case R.id.btn_clean:
                 display = new StringBuffer();
